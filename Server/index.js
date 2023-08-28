@@ -45,6 +45,22 @@ mongoose.connect(
 const adminSecret = "ILOVECODING";
 
 // JWT Verification for Users
+const authenticateAdmin = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, adminSecret, (err, user) => {
+      if (err) {
+        return res.status(403).send("Invalid Token");
+      }
+
+      req.user = user;
+      next();
+    });
+  } else {
+    res.status(411);
+  }
+};
 
 // Admin Signup Route
 
@@ -95,6 +111,30 @@ app.post("/admin/login", async (req, res) => {
   }
 });
 
+// Route for Creating Product
+app.post("/admin/createProduct", authenticateAdmin, async (req, res) => {
+  const email = req.user.email;
+  const admin = await Admin.findOne({ email });
+
+  if (admin) {
+    const newProduct = new Product(req.body);
+    await newProduct.save();
+    res.status(200).json({ message: "Product Created Successfully!" });
+  } else {
+    res.status(403).send("Can't Create Product");
+  }
+});
+
+app.get("/admin/products", async (req, res) => {
+  const products = await Product.find();
+  if (products) {
+    res.status(200).json(products);
+  } else {
+    res.status(411);
+  }
+});
+
+// Listening App at PORT!
 app.listen(PORT, () => {
   console.log(`App successfully hosted at port ${PORT}`);
 });
