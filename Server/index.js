@@ -45,7 +45,7 @@ mongoose.connect(
 const SECRET_KEY = "ILOVECODING";
 
 // JWT Verification for Admins
-const authenticateAdmin = (req, res, next) => {
+const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
@@ -130,7 +130,7 @@ app.post("/admin/login", async (req, res) => {
 });
 
 // Route for Creating Product
-app.post("/admin/createProduct", authenticateAdmin, async (req, res) => {
+app.post("/admin/createProduct", authenticate, async (req, res) => {
   const email = req.user.email;
   const admin = await Admin.findOne({ email });
 
@@ -198,7 +198,7 @@ app.post("/user/login", async (req, res) => {
   }
 });
 
-app.post("/user/add-to-cart", authenticateAdmin, async (req, res) => {
+app.post("/user/add-to-cart", authenticate, async (req, res) => {
   try {
     const productId = req.body.productId;
     const product = await Product.findOne({ _id: productId });
@@ -225,6 +225,24 @@ app.post("/user/add-to-cart", authenticateAdmin, async (req, res) => {
     } else {
       res.status(404).json({ message: "Product not found" });
     }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "An error occurred" });
+  }
+});
+
+app.get("/user/cart", authenticate, async (req, res) => {
+  try {
+    const email = req.user.email;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(403)
+        .send("Thodi Aur Mehnat karo, you're not getting the cart!");
+    }
+    const cart = user.cart;
+    res.status(200).json(cart);
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: "An error occurred" });
