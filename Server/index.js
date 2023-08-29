@@ -42,14 +42,14 @@ mongoose.connect(
 );
 
 // Admins Secret Key
-const adminSecret = "ILOVECODING";
+const SECRET_KEY = "ILOVECODING";
 
 // JWT Verification for Admins
 const authenticateAdmin = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    jwt.verify(token, adminSecret, (err, user) => {
+    jwt.verify(token, SECRET_KEY, (err, user) => {
       if (err) {
         return res.status(403).send("Invalid Token");
       }
@@ -62,24 +62,23 @@ const authenticateAdmin = (req, res, next) => {
   }
 };
 
-// Users Secret Key
-const userSecret = "HastaLaVistaBaby!";
-// JWT Verification for Users
-const userAuthentication = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    const token = authHeader.split(" ")[0];
-    jwt.verify(token, userSecret, (err, user) => {
-      if (err) {
-        return res.status(411).send("Invalid Token!");
-      } else {
-        req.user = user;
-        next();
-      }
-    });
-  }
-  res.status(411).send("Forbidden!");
-};
+// // Users Secret Key
+// const SECRET_KEY = "HastaLaVistaBaby!";
+// // JWT Verification for Users
+// const userAuthentication = (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   if (authHeader) {
+//     const token = authHeader.split(" ")[1];
+//     jwt.verify(token, SECRET_KEY, (err, user) => {
+//       if (err) {
+//         return res.status(411).send("Invalid Token!");
+//       }
+//       req.user = user;
+//       next();
+//     });
+//   }
+//   res.status(411).send("Forbidden!");
+// };
 
 // Admin Signup Route
 
@@ -103,7 +102,7 @@ app.post("/admin/signup", async (req, res) => {
     };
     const newAdmin = new Admin(obj);
     newAdmin.save();
-    const token = jwt.sign({ email, role: "admin" }, adminSecret, {
+    const token = jwt.sign({ email, role: "admin" }, SECRET_KEY, {
       expiresIn: "1h",
     });
 
@@ -120,7 +119,7 @@ app.post("/admin/login", async (req, res) => {
   const isAdmin = await Admin.findOne({ email, password });
 
   if (isAdmin) {
-    const token = jwt.sign({ email, role: "admin" }, adminSecret, {
+    const token = jwt.sign({ email, role: "admin" }, SECRET_KEY, {
       expiresIn: "1h",
     });
 
@@ -174,7 +173,7 @@ app.post("/user/signup", async (req, res) => {
     const newUser = new User(obj);
     newUser.save();
 
-    const token = jwt.sign({ email, role: "user" }, userSecret, {
+    const token = jwt.sign({ email, role: "user" }, SECRET_KEY, {
       expiresIn: "1h",
     });
 
@@ -190,12 +189,45 @@ app.post("/user/login", async (req, res) => {
 
   const user = await User.findOne({ email, password });
   if (user) {
-    const token = jwt.sign({ email, role: "user" }, userSecret, {
+    const token = jwt.sign({ email, role: "user" }, SECRET_KEY, {
       expiresIn: "1h",
     });
     res.status(200).json({ message: "User Logged in Successfully", token });
   } else {
     res.status(401).send("Invalid Creds!");
+  }
+});
+
+app.post("/user/add-to-cart", authenticateAdmin, async (req, res) => {
+  try {
+    const productId = req.body.productId;
+    const product = await Product.findOne({ _id: productId });
+    const userEmail = req.user.email;
+
+    if (product) {
+      const user = await User.findOne({ email: userEmail });
+
+      if (user) {
+        if (user.cart.includes(productId)) {
+          res
+            .status(200)
+            .json({ message: "Item already in the cart", productId });
+        } else {
+          user.cart.push(productId);
+          await user.save();
+          res
+            .status(200)
+            .json({ message: "Item added to the cart", productId });
+        }
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "An error occurred" });
   }
 });
 
