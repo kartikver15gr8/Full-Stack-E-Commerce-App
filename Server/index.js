@@ -41,10 +41,10 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true, dbName: "Ama" }
 );
 
-// JWT Verification for Admins
+// Admins Secret Key
 const adminSecret = "ILOVECODING";
 
-// JWT Verification for Users
+// JWT Verification for Admins
 const authenticateAdmin = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
@@ -60,6 +60,25 @@ const authenticateAdmin = (req, res, next) => {
   } else {
     res.status(411);
   }
+};
+
+// Users Secret Key
+const userSecret = "HastaLaVistaBaby!";
+// JWT Verification for Users
+const userAuthentication = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[0];
+    jwt.verify(token, userSecret, (err, user) => {
+      if (err) {
+        return res.status(411).send("Invalid Token!");
+      } else {
+        req.user = user;
+        next();
+      }
+    });
+  }
+  res.status(411).send("Forbidden!");
 };
 
 // Admin Signup Route
@@ -131,6 +150,52 @@ app.get("/admin/products", async (req, res) => {
     res.status(200).json(products);
   } else {
     res.status(411);
+  }
+});
+
+// User Signup Route
+app.post("/user/signup", async (req, res) => {
+  const userCreds = req.body;
+  const email = userCreds.email;
+
+  const user = await User.findOne({ email });
+
+  if (user) {
+    res.status(403).send("User already exists!");
+  } else {
+    const obj = {
+      name: userCreds.name,
+      email: userCreds.email,
+      password: userCreds.password,
+      address: userCreds.address,
+      cart: [],
+      orders: [],
+    };
+    const newUser = new User(obj);
+    newUser.save();
+
+    const token = jwt.sign({ email, role: "user" }, userSecret, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({ message: "User Created Successfully", token });
+  }
+});
+
+// User Login Route
+app.post("/user/login", async (req, res) => {
+  const userCreds = req.body;
+  const email = userCreds.email;
+  const password = userCreds.password;
+
+  const user = await User.findOne({ email, password });
+  if (user) {
+    const token = jwt.sign({ email, role: "user" }, userSecret, {
+      expiresIn: "1h",
+    });
+    res.status(200).json({ message: "User Logged in Successfully", token });
+  } else {
+    res.status(401).send("Invalid Creds!");
   }
 });
 
