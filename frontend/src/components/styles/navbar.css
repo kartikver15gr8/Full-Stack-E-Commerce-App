@@ -1,0 +1,63 @@
+.navdiv {
+  display: flexbox;
+}
+
+.navbar {
+  height: 50px;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+ul img {
+  padding-right: 40px;
+}
+
+ul input {
+  font-size: large;
+  margin-right: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width: 300px;
+  height: 25px;
+  border-radius: 5px;
+}
+
+.searchBtn {
+  width: 50px;
+  height: 32px;
+  border-radius: 5px;
+  margin-right: 50px;
+  background-color: rgb(240, 169, 36);
+}
+
+ul button img {
+  width: 30px;
+  height: 30px;
+}
+
+.signup {
+  font-size: large;
+  margin-right: 10px;
+  font-weight: bolder;
+  padding: 5px;
+  height: 32px;
+  border-radius: 5px;
+  background-color: rgb(240, 169, 36);
+}
+
+.login {
+  font-size: large;
+  margin-right: 10px;
+  font-weight: bolder;
+  padding: 5px;
+  height: 32px;
+  border-radius: 5px;
+  background-color: rgb(240, 169, 36);
+}
+
+.btns {
+  text-align: right;
+}
