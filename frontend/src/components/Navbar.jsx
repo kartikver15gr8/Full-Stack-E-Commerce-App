@@ -7,7 +7,7 @@ function Navbar() {
     <div className="navdiv">
       <nav
         className="navbar"
-        style={{ backgroundColor: "black", paddingTop: "15px" }}
+        style={{ backgroundColor: "rgb(19, 25, 33)", paddingTop: "15px" }}
       >
         <ul>
           <img
