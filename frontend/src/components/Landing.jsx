@@ -26,44 +26,72 @@ function Landing() {
           // height: "35vh",
         }}
       >
-        <button
-          style={{ zIndex: "1" }}
-          onClick={() => {
-            if (count > 2) {
-              setCount(count - 1);
-              setCarousel(`carousel${count}.jpg`);
-            } else {
-              setCount(6);
-              setCarousel(`carousel${count}.jpg`);
-            }
-          }}
-        >
-          ◀
-        </button>
-        <img
-          className="img"
-          src={carousel}
-          alt=""
+        <div
+          className="imageContainer"
           style={{
-            width: "80vw",
-            height: "100%",
-          }}
-        />
-
-        <button
-          style={{ zIndex: "1" }}
-          onClick={() => {
-            if (count < 6) {
-              setCount(count + 1);
-              setCarousel(`carousel${count}.jpg`);
-            } else {
-              setCount(2);
-              setCarousel(`carousel${count}.jpg`);
-            }
+            display: "inline-block",
+            position: "relative",
+            overflow: "hidden",
           }}
         >
-          ▶
-        </button>
+          <button
+            className="overBtn"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
+              zIndex: "1",
+              border: "none",
+              height: "100%",
+              width: "4%",
+            }}
+            onClick={() => {
+              if (count > 2) {
+                setCount(count - 1);
+                setCarousel(`carousel${count}.jpg`);
+              } else {
+                setCount(6);
+                setCarousel(`carousel${count}.jpg`);
+              }
+            }}
+          >
+            ◀
+          </button>
+
+          <img
+            className="img"
+            src={carousel}
+            alt=""
+            style={{
+              width: "95vw",
+            }}
+          />
+          <button
+            className="overBtn"
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
+              zIndex: "1",
+              border: "none",
+              height: "100%",
+              width: "4%",
+            }}
+            onClick={() => {
+              if (count < 6) {
+                setCount(count + 1);
+                setCarousel(`carousel${count}.jpg`);
+              } else {
+                setCount(2);
+                setCarousel(`carousel${count}.jpg`);
+              }
+            }}
+          >
+            ▶
+          </button>
+        </div>
       </div>
     </div>
   );
