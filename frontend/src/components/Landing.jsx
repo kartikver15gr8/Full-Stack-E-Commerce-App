@@ -41,6 +41,7 @@ function Landing() {
           ◀
         </button>
         <img
+          className="img"
           src={carousel}
           alt=""
           style={{
