@@ -18,7 +18,12 @@ function Navbar() {
               navigate("/");
             }}
           />
-          <input type="text" name="search" className="searchBox" />
+          <input
+            type="text"
+            name="search"
+            placeholder="Search"
+            className="searchBox"
+          />
           <button className="searchBtn">
             <img src="../public/search.png" alt="" />
           </button>

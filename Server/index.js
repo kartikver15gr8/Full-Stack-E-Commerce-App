@@ -172,7 +172,7 @@ app.post("/user/signup", async (req, res) => {
       orders: [],
     };
     const newUser = new User(obj);
-    newUser.save();
+    await newUser.save();
 
     const token = jwt.sign({ email, role: "user" }, SECRET_KEY, {
       expiresIn: "1h",
