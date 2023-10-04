@@ -1,10 +1,10 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
-const cors = require("cors");
+import express from "express";
+import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
+import cors from "cors";
 
-const adminRouter = require("./routes/admin");
-const userRouter = require("./routes/user");
+import adminRouter from "./routes/admin";
+import userRouter from "./routes/user";
 
 const PORT = 3001;
 
@@ -18,7 +18,7 @@ app.use("/user", userRouter);
 // Connecting to our database cloud instance
 mongoose.connect(
   "mongodb+srv://builderschaincommunity:TujhaAichaGawat@cluster1.zw1vlfc.mongodb.net/Ama",
-  { useNewUrlParser: true, useUnifiedTopology: true, dbName: "Ama" }
+  { dbName: "Ama" }
 );
 
 // Listening App at PORT!
