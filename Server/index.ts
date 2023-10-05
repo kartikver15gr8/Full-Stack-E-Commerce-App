@@ -16,6 +16,7 @@ app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 
 // Connecting to our database cloud instance
+// Its just a personal project, DON'T MISUSE THIS THANKYOU!!
 mongoose.connect(
   "mongodb+srv://builderschaincommunity:TujhaAichaGawat@cluster1.zw1vlfc.mongodb.net/Ama",
   { dbName: "Ama" }
