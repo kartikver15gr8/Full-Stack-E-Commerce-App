@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 import express from "express";
-const { User, Admin, Product } = require("../db");
+import { User, Admin, Product } from "../db";
 import jwt from "jsonwebtoken";
-const { SECRET_KEY } = require("../middleware/auth");
-const { authenticate } = require("../middleware/auth");
+import { SECRET_KEY, authenticate } from "../middleware/auth";
 
 const router = express.Router();
 

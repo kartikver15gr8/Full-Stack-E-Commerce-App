@@ -1,8 +1,20 @@
 import express from "express";
+// require("dotenv").config();
 import jwt from "jsonwebtoken";
 import { authenticate, SECRET_KEY } from "../middleware/auth";
 import { User, Product, Admin } from "../db";
 const router = express.Router();
+
+router.get("/me", authenticate, async (req, res) => {
+  const user = await User.findOne({ email: req.headers["user"] });
+  if (!user) {
+    res.status(403).json({ msg: "User doesnt exist" });
+    return;
+  }
+  res.json({
+    email: user.email,
+  });
+});
 
 // User Signup Route
 router.post("/signup", async (req, res) => {

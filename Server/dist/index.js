@@ -1,9 +1,7 @@
 "use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -17,11 +15,8 @@ app.use(express_1.default.json());
 app.use("/admin", admin_1.default);
 app.use("/user", user_1.default);
 // Connecting to our database cloud instance
-mongoose_1.default.connect(
-  "mongodb+srv://builderschaincommunity:TujhaAichaGawat@cluster1.zw1vlfc.mongodb.net/Ama",
-  { dbName: "Ama" }
-);
+mongoose_1.default.connect("mongodb+srv://builderschaincommunity:TujhaAichaGawat@cluster1.zw1vlfc.mongodb.net/Ama", { dbName: "Ama" });
 // Listening App at PORT!
 app.listen(PORT, () => {
-  console.log(`App successfully hosted at port ${PORT}`);
+    console.log(`App successfully hosted at port ${PORT}`);
 });
