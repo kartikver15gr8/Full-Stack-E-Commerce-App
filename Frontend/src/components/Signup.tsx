@@ -48,7 +48,7 @@ export default function Signup() {
                 id="outlined-basic"
                 label="password"
                 variant="outlined"
-                type="text"
+                type="password"
                 style={{ margin: "5px" }}
                 onChange={(e) => {
                     setPassword(e.target.value);
