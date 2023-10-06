@@ -1,12 +1,19 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../store/atoms/user";
+
 
 export default function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [address, setAddress] = useState("");
+
+    const navigate = useNavigate();
+    const setUser = useSetRecoilState(userState)
 
     return (
         <div
@@ -82,6 +89,13 @@ export default function Signup() {
                             console.log(data);
                             localStorage.setItem("token", data.token);
                         });
+
+                    setUser({
+                        isLoading: false,
+                        userEmail: email
+                    })
+
+                    navigate('/')
                 }}
             >
                 signup

@@ -1,5 +1,5 @@
 import { RecoilRoot, useSetRecoilState } from "recoil"
-import { userState } from "./store/atoms/user.ts"
+import { userState } from "./store/atoms/user"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from "react";
 import axios from 'axios'
