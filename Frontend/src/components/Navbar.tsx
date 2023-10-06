@@ -62,7 +62,7 @@ function Navbar() {
                                     isLoading: false,
                                     userEmail: null
                                 })
-                                navigate('signup')
+                                navigate('/')
                             }}
                         >Logout</button>
                     </ul>
