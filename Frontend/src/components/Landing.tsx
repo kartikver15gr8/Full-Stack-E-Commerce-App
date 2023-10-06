@@ -2,6 +2,7 @@ import { useState } from "react";
 // import Navbar from "./Navbar";
 // import { useNavigate } from "react-router-dom";
 import "./styles/landing.css";
+import Products from './Products'
 
 function Landing() {
     const [carousel, setCarousel] = useState("../public/carousel3.jpg");
@@ -93,6 +94,7 @@ function Landing() {
                     </button>
                 </div>
             </div>
+            <Products />
         </div>
     );
 }
