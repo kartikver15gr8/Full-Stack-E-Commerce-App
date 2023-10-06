@@ -114,4 +114,13 @@ router.get("/cart", authenticate, async (req, res) => {
   }
 });
 
+// router.get("/products", authenticate, async (req, res) => {
+//   const products = await Product.find();
+//   if (products) {
+//     res.status(200).json(products);
+//   } else {
+//     res.status(411).send("Kuch gadbad");
+//   }
+// });
+
 export default router;
