@@ -9,7 +9,6 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const setUser = useSetRecoilState(userState)
-    const userEmail = useRecoilValue(userState)
     const navigate = useNavigate();
 
 
