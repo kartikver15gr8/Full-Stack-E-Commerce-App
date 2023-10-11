@@ -3,8 +3,18 @@ import express from "express";
 import { User, Admin, Product } from "../db";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY, authenticate } from "../middleware/auth";
+import { z } from "zod";
 
 const router = express.Router();
+
+
+// 
+
+const adminSignupBody = z.object({
+  name: z.string().min(1).max(50),
+  email: z.string().min(1).max(50),
+  password: z.string().min(1).max(50),
+});
 
 router.get("/me", authenticate, async (req, res) => {
   const admin = await Admin.findOne({ email: req.headers["user"] });
