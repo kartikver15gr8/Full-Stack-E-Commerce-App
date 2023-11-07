@@ -1,3 +1,2 @@
-# E-commerce-Web-App-full-stack
-
+# E-Commerce WebApp
 The project is under progress
