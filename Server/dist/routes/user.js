@@ -120,4 +120,12 @@ router.get("/cart", auth_1.authenticate, (req, res) => __awaiter(void 0, void 0,
         res.status(500).json({ message: "An error occurred" });
     }
 }));
+// router.get("/products", authenticate, async (req, res) => {
+//   const products = await Product.find();
+//   if (products) {
+//     res.status(200).json(products);
+//   } else {
+//     res.status(411).send("Kuch gadbad");
+//   }
+// });
 exports.default = router;

@@ -16,7 +16,14 @@ const express_1 = __importDefault(require("express"));
 const db_1 = require("../db");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth_1 = require("../middleware/auth");
+const zod_1 = require("zod");
 const router = express_1.default.Router();
+//
+const adminSignupBody = zod_1.z.object({
+    name: zod_1.z.string().min(1).max(50),
+    email: zod_1.z.string().min(1).max(50),
+    password: zod_1.z.string().min(1).max(50),
+});
 router.get("/me", auth_1.authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const admin = yield db_1.Admin.findOne({ email: req.headers["user"] });
     if (!admin) {

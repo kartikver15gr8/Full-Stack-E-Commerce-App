@@ -15,6 +15,7 @@ app.use(express_1.default.json());
 app.use("/admin", admin_1.default);
 app.use("/user", user_1.default);
 // Connecting to our database cloud instance
+// Its just a personal project, DON'T MISUSE THIS THANKYOU!!
 mongoose_1.default.connect("mongodb+srv://builderschaincommunity:TujhaAichaGawat@cluster1.zw1vlfc.mongodb.net/Ama", { dbName: "Ama" });
 // Listening App at PORT!
 app.listen(PORT, () => {

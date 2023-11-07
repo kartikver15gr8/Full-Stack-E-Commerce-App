@@ -7,8 +7,7 @@ import { z } from "zod";
 
 const router = express.Router();
 
-
-// 
+//
 
 const adminSignupBody = z.object({
   name: z.string().min(1).max(50),
@@ -98,3 +97,4 @@ router.get("/products", async (req, res) => {
 });
 
 export default router;
+
