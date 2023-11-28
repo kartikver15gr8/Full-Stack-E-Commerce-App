@@ -6,9 +6,9 @@ import cors from "cors";
 import adminRouter from "./routes/admin";
 import userRouter from "./routes/user";
 
+const app = express();
 const PORT = 3001;
 
-const app = express();
 app.use(cors());
 app.use(express.json());
 
