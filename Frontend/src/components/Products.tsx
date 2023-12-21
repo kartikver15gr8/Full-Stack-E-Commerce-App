@@ -34,8 +34,6 @@ export default function Products() {
 
 
 export function Product({ product }) {
-
-
     return (
         <Card
             style={{
