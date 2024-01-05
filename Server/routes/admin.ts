@@ -8,9 +8,9 @@ import { z } from "zod";
 const router = express.Router();
 
 const adminSignupBody = z.object({
-  name: z.string().min(1).max(50),
-  email: z.string().min(1).max(50),
-  password: z.string().min(1).max(50),
+  name: z.string().min(1).max(100),
+  email: z.string().min(1).max(100),
+  password: z.string().min(1).max(100),
 });
 
 router.get("/me", authenticate, async (req, res) => {
@@ -25,17 +25,20 @@ router.get("/me", authenticate, async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const userCreds = req.body;
-  const email = userCreds.email;
-  const name = userCreds.name;
-  const password = userCreds.password;
+  const userCreds = adminSignupBody.safeParse(req.body);
+
+  if (!userCreds.success) {
+    return res.status(411).json({ msg: "Invalid Inputs" });
+  }
+
+  const email: string = userCreds.data.email;
+  const name: string = userCreds.data.name;
+  const password: string = userCreds.data.password;
 
   const admin = await Admin.findOne({ email });
 
   if (admin) {
-    res
-      .status(403)
-      .json({ message: `Admin Already Exists: ${userCreds.email}` });
+    res.status(403).json({ message: `Admin Already Exists: ${email}` });
   } else {
     const obj = {
       name: name,
@@ -54,9 +57,14 @@ router.post("/signup", async (req, res) => {
 
 // Admin Login Route
 router.post("/login", async (req, res) => {
-  const userCreds = req.body;
-  const email = userCreds.email;
-  const password = userCreds.password;
+  const userCreds = adminSignupBody.safeParse(req.body);
+
+  if (!userCreds.success) {
+    return res.status(411).json({ msg: "Invalid Inputs" });
+  }
+
+  const email = userCreds.data.email;
+  const password = userCreds.data.password;
 
   const isAdmin = await Admin.findOne({ email, password });
 
