@@ -13,6 +13,11 @@ const userSignupBody = z.object({
   address: z.string().min(10).max(200),
 });
 
+const userLoginBody = z.object({
+  email: z.string().min(1).max(100),
+  password: z.string().min(1).max(100),
+});
+
 router.get("/me", authenticate, async (req, res) => {
   const user = await User.findOne({ email: req.headers["user"] });
   if (!user) {
@@ -60,7 +65,8 @@ router.post("/signup", async (req, res) => {
 
 // User Login Route
 router.post("/login", async (req, res) => {
-  const userCreds = userSignupBody.safeParse(req.body);
+  const userCreds = userLoginBody.safeParse(req.body);
+
   if (!userCreds.success) {
     return res.status(411).json({ msg: "Invalid Inputs" });
   }
@@ -81,7 +87,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/add-to-cart", authenticate, async (req, res) => {
   try {
-    const productId = req.body.productId;
+    const productId = req.body;
     const product = await Product.findOne({ _id: productId });
     const userEmail = req.headers["user"];
 

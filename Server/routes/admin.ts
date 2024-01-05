@@ -13,6 +13,11 @@ const adminSignupBody = z.object({
   password: z.string().min(1).max(100),
 });
 
+const adminLoginBody = z.object({
+  email: z.string().min(1).max(100),
+  password: z.string().min(1).max(100),
+});
+
 router.get("/me", authenticate, async (req, res) => {
   const admin = await Admin.findOne({ email: req.headers["user"] });
   if (!admin) {
@@ -57,7 +62,7 @@ router.post("/signup", async (req, res) => {
 
 // Admin Login Route
 router.post("/login", async (req, res) => {
-  const userCreds = adminSignupBody.safeParse(req.body);
+  const userCreds = adminLoginBody.safeParse(req.body);
 
   if (!userCreds.success) {
     return res.status(411).json({ msg: "Invalid Inputs" });
