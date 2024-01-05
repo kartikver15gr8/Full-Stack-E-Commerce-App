@@ -1,9 +1,17 @@
 import express from "express";
 // require("dotenv").config();
 import jwt from "jsonwebtoken";
+import { z } from "zod";
 import { authenticate, SECRET_KEY } from "../middleware/auth";
 import { User, Product, Admin } from "../db";
 const router = express.Router();
+
+const userSignupBody = z.object({
+  name: z.string().min(1).max(100),
+  email: z.string().min(1).max(100),
+  password: z.string().min(1).max(100),
+  address: z.string().min(10).max(200),
+});
 
 router.get("/me", authenticate, async (req, res) => {
   const user = await User.findOne({ email: req.headers["user"] });
@@ -18,19 +26,23 @@ router.get("/me", authenticate, async (req, res) => {
 
 // User Signup Route
 router.post("/signup", async (req, res) => {
-  const userCreds = req.body;
-  const email = userCreds.email;
+  const userCreds = userSignupBody.safeParse(req.body);
 
+  if (!userCreds.success) {
+    return res.status(411).json({ msg: "Invalid Inputs" });
+  }
+
+  const email: string = userCreds.data.email;
   const user = await User.findOne({ email });
 
   if (user) {
     res.status(403).send("User already exists!");
   } else {
     const obj = {
-      name: userCreds.name,
-      email: userCreds.email,
-      password: userCreds.password,
-      address: userCreds.address,
+      name: userCreds.data.name,
+      email: userCreds.data.email,
+      password: userCreds.data.password,
+      address: userCreds.data.address,
       cart: [],
       orders: [],
     };
@@ -48,9 +60,13 @@ router.post("/signup", async (req, res) => {
 
 // User Login Route
 router.post("/login", async (req, res) => {
-  const userCreds = req.body;
-  const email = userCreds.email;
-  const password = userCreds.password;
+  const userCreds = userSignupBody.safeParse(req.body);
+  if (!userCreds.success) {
+    return res.status(411).json({ msg: "Invalid Inputs" });
+  }
+
+  const email: string = userCreds.data.email;
+  const password: string = userCreds.data.password;
 
   const user = await User.findOne({ email, password });
   if (user) {
