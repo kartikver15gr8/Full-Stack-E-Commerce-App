@@ -66,12 +66,17 @@ export default function Login() {
                         .then((data) => {
                             console.log(data);
                             localStorage.setItem("token", data.token);
+                            if (data.token) {
+                                setUser({
+                                    isLoading: false,
+                                    userEmail: email
+                                })
+                                navigate('/')
+                            } else {
+                                alert("Wrong Creds!")
+                            }
                         });
-                    setUser({
-                        isLoading: false,
-                        userEmail: email
-                    })
-                    navigate('/')
+
                 }}
             >
                 login

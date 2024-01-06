@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Typography } from "@mui/material";
-import { BASE_URL } from '../config'
-// import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../config';
+// import ProductDetail from './ProductDetails';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -34,6 +35,7 @@ export default function Products() {
 
 
 export function Product({ product }) {
+    const navigate = useNavigate()
     return (
         <Card
             style={{
@@ -75,7 +77,10 @@ export function Product({ product }) {
                         });
 
                         const data = await response.json();
-                        console.log(data);
+                        if (data) {
+                            console.log(data);
+                            navigate('/ProductDetail')
+                        }
 
                     }}
                 >
