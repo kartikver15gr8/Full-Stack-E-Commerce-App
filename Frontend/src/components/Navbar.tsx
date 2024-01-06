@@ -62,12 +62,13 @@ function Navbar() {
                                     isLoading: false,
                                     userEmail: null
                                 })
+                                localStorage.setItem("token", "");
                                 navigate('/')
                             }}
                         >Logout</button>
                     </ul>
                 </nav>
-            </div>
+            </div >
         )
     }
 
