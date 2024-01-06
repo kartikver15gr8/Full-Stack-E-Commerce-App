@@ -1,5 +1,6 @@
 import express from "express";
 // require("dotenv").config();
+import { ObjectId } from "mongoose";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 import { authenticate, SECRET_KEY } from "../middleware/auth";
@@ -136,13 +137,43 @@ router.get("/cart", authenticate, async (req, res) => {
   }
 });
 
-// router.get("/products", authenticate, async (req, res) => {
-//   const products = await Product.find();
-//   if (products) {
-//     res.status(200).json(products);
+// router.post("/createProduct", authenticate, async (req, res) => {
+//   const email = req.headers["user"];
+//   const admin = await Admin.findOne({ email });
+
+//   if (admin) {
+//     const newProduct = new Product(req.body);
+//     await newProduct.save();
+//     res.status(200).json({ message: "Product Created Successfully!" });
 //   } else {
-//     res.status(411).send("Kuch gadbad");
+//     res.status(403).send("Can't Create Product");
 //   }
 // });
+
+router.get("/product/:_id", authenticate, async (req, res) => {
+  try {
+    const id = req.params._id;
+
+    const product = await Product.findById(id);
+
+    if (product) {
+      return res.status(200).send(product);
+    } else {
+      return res.status(404).send("Product not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/products", authenticate, async (req, res) => {
+  const products = await Product.find();
+  if (products) {
+    res.status(200).json(products);
+  } else {
+    res.status(411).send("Kuch gadbad");
+  }
+});
 
 export default router;
