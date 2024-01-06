@@ -3,6 +3,8 @@ import { Button, Card, Typography } from "@mui/material";
 import { BASE_URL } from '../config';
 // import ProductDetail from './ProductDetails';
 import { useNavigate } from 'react-router-dom';
+import { productState } from "../store/atoms/product";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import axios from 'axios';
 
 
@@ -35,6 +37,8 @@ export default function Products() {
 
 
 export function Product({ product }) {
+    const setProduct = useSetRecoilState(productState);
+
     const navigate = useNavigate()
     return (
         <Card
@@ -78,6 +82,8 @@ export function Product({ product }) {
 
                         const data = await response.json();
                         if (data) {
+                            setProduct({ isLoading: false, productDetails: data })
+
                             console.log(data);
                             navigate('/ProductDetail')
                         }
