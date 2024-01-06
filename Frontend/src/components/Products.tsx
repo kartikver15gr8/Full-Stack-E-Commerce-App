@@ -59,7 +59,31 @@ export function Product({ product }) {
                 >
                     Buy Price: {product.price}
                 </Button>
+
+
+                <Button
+                    variant="contained"
+                    size="large"
+                    onClick={async () => {
+
+                        const response = await fetch(`http://localhost:3001/user/product/${product._id}`, {
+                            method: "GET",
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                                "Content-Type": "application/json",
+                            },
+                        });
+
+                        const data = await response.json();
+                        console.log(data);
+
+                    }}
+                >
+                    Add
+                </Button>
+
+
             </div>
-        </Card>
+        </Card >
     );
 }
