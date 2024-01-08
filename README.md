@@ -1,2 +1,2 @@
-# E-Commerce WebApp
+# E-Commerce App
 The project is under progress
