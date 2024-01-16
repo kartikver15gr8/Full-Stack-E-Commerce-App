@@ -85,7 +85,7 @@ export function Product({ product }) {
                             setProduct({ isLoading: false, productDetails: data })
 
                             console.log(data);
-                            navigate('/ProductDetail')
+                            navigate("/product/" + data._id)
                         }
 
                     }}

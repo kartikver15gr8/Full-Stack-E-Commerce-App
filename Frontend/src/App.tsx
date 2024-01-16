@@ -25,7 +25,7 @@ function App() {
           <InitUser />
           <Routes>
             <Route path="/" element={<Landing />}></Route>
-            <Route path="/ProductDetail" element={<ProductDetail />}></Route>
+            <Route path="/product/:_id" element={<ProductDetail />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/login" element={<Login />}></Route>
           </Routes>

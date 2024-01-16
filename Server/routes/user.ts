@@ -177,3 +177,4 @@ router.get("/products", authenticate, async (req, res) => {
 });
 
 export default router;
+
