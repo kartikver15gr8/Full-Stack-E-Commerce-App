@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import { productState } from "../store/atoms/product";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
-import { productDetailsDescription, productDetailsImage, productDetailsTitle, productDetailsPrice } from "../store/selectors/getProduct"
+import { productDetailsId, productDetailsDescription, productDetailsImage, productDetailsTitle, productDetailsPrice } from "../store/selectors/getProduct"
 import { Button, Card, Typography } from "@mui/material";
 
 export default function ProductDetail() {
@@ -45,6 +45,7 @@ function ProductCard() {
   const price = useRecoilValue(productDetailsPrice)
   const image = useRecoilValue(productDetailsImage)
   const description = useRecoilValue(productDetailsDescription)
+  const _id = useRecoilValue(productDetailsId)
 
   return (
     <>
@@ -70,8 +71,9 @@ function ProductCard() {
             size="large"
 
           >
-            Buy Price: {price}
+            add to cart {price}
           </Button>
+          {/* <p>{_id}</p> */}
         </div>
       </Card>
     </>

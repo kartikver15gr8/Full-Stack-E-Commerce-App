@@ -41,6 +41,17 @@ export const productDetailsDescription = selector({
     },
 });
 
+export const productDetailsId = selector({
+    key: 'productDetailsId',
+    get: ({ get }) => {
+        const state = get(productState);
+        if (state.productDetails) {
+            return state.productDetails._id;
+        }
+        return "";
+    },
+});
+
 export const productDetailsPrice = selector({
     key: 'productDetailsPriceState',
     get: ({ get }) => {

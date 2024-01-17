@@ -63,7 +63,7 @@ export function Product({ product }) {
                     size="large"
 
                 >
-                    Buy Price: {product.price}
+                    Price: {product.price}
                 </Button>
 
 
@@ -90,10 +90,8 @@ export function Product({ product }) {
 
                     }}
                 >
-                    Add
+                    Look
                 </Button>
-
-
             </div>
         </Card >
     );
