@@ -2,7 +2,7 @@ import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { userState } from "../store/atoms/user";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
