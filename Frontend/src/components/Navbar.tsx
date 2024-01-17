@@ -20,7 +20,7 @@ function Navbar() {
                 >
                     <ul>
                         <img
-                            src="../public/ama.png"
+                            src="../ama.png"
                             alt="Amazon"
                             style={{ width: "100px" }}
                             onClick={() => {
@@ -34,7 +34,7 @@ function Navbar() {
                             className="searchBox"
                         />
                         <button className="searchBtn">
-                            <img src="../public/search.png" alt="" />
+                            <img src="../search.png" alt="" />
                         </button>
                         {/* <button
                             className="signup"
@@ -52,8 +52,8 @@ function Navbar() {
                         >
                             login
                         </button> */}
-                        <div className="user">
-                            <p style={{ color: 'whitesmoke' }}>{userEmail}</p>
+                        <div className="user" style={{ marginRight: '15px' }}>
+                            <p style={{ color: 'whitesmoke', fontWeight: 'bolder', fontFamily: 'monospace', fontSize: 'larger' }}>Hi {userEmail.split('@')[0]}👋</p>
                         </div>
                         <button
                             className="logout"
@@ -83,7 +83,7 @@ function Navbar() {
                 >
                     <ul>
                         <img
-                            src="../public/ama.png"
+                            src="../ama.png"
                             alt="Amazon"
                             style={{ width: "100px" }}
                             onClick={() => {
@@ -97,7 +97,7 @@ function Navbar() {
                             className="searchBox"
                         />
                         <button className="searchBtn">
-                            <img src="../public/search.png" alt="" />
+                            <img src="../search.png" alt="" />
                         </button>
                         <button
                             className="signup"

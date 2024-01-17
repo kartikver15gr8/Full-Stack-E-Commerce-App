@@ -6,7 +6,7 @@ import Products from './Products';
 import Footer from "./Footer";
 
 function Landing() {
-    const [carousel, setCarousel] = useState("../public/carousel3.jpg");
+    const [carousel, setCarousel] = useState("/carousel3.jpg");
     const [count, setCount] = useState(2);
 
     return (
