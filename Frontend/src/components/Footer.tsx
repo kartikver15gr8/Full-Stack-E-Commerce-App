@@ -2,7 +2,7 @@
 export default function Footer() {
     return (
         <div className="footer">
-            <div className="backToTop" style={{ display: 'flex', backgroundColor: 'rgb(72, 87, 105)', width: '100%', height: '45px' }}>
+            <div className="backToTop" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(72, 87, 105)', width: '100%', height: '45px' }}>
                 <h4 style={{ color: 'whitesmoke', fontFamily: 'monospace' }}>Back to top</h4>
             </div>
 
@@ -49,7 +49,7 @@ export default function Footer() {
             </div>
             <hr />
 
-            <div className="box3" style={{ display: 'flex', backgroundColor: 'rgb(35, 47, 62)', width: '100%', height: '200px', justifyContent: 'center' }}>
+            <div className="box3" style={{ display: 'flex', backgroundColor: '#131a22', width: '100%', height: '200px', justifyContent: 'center' }}>
 
                 <div className="one"></div>
                 <div className="two"></div>
