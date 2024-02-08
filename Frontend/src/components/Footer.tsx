@@ -2,7 +2,7 @@
 export default function Footer() {
     return (
         <div className="footer">
-            <div className="backToTop" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(72, 87, 105)', width: '100%', height: '45px' }}>
+            <div className="backToTop" style={{ display: 'flex', backgroundColor: 'rgb(72, 87, 105)', width: '100%', height: '45px' }}>
                 <h4 style={{ color: 'whitesmoke', fontFamily: 'monospace' }}>Back to top</h4>
             </div>
 
